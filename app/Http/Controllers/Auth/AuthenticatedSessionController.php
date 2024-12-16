@@ -20,13 +20,15 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
-        $user->tokens()->delete();
+        // Update the current session ID
+        $user->update(['current_session_id' => session()->getId()]);
 
+        $user->tokens()->delete();
         $token = $user->createToken('api-token');
 
         return response()->json([
             "user" => $user,
-            "token" => $token->plainTextToken
+            "token" => $token->plainTextToken,
         ]);
     }
 
