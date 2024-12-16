@@ -29,8 +29,5 @@ class DatabaseSeeder extends Seeder
         \App\Models\AbsencePermit::factory(50)->create();
         \App\Models\AbsencePermitTypeSchool::factory(3)->create();
         \App\Models\AttendanceLateTypeSchool::factory(3)->create();
-
-
-        \App\Models\User::factory()->create(['username' => 'presentia', 'email' => 'presentia@gmail.com' , 'password' => '123']);
     }
 }
