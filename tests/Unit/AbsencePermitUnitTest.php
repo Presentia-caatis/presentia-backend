@@ -8,12 +8,14 @@ use App\Models\Attendance;
 use App\Models\Document;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AbsencePermitUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_absence_permit_belongs_to_an_attendance()
     {
         $absencePermit = AbsencePermit::factory()->create();
@@ -21,7 +23,7 @@ class AbsencePermitUnitTest extends TestCase
         $this->assertInstanceOf(Attendance::class, $absencePermit->attendance);
     }
 
-    /** @test */
+    #[Test]
     public function an_absence_permit_belongs_to_an_absence_permit_type()
     {
         $absencePermit = AbsencePermit::factory()->create();
@@ -29,7 +31,7 @@ class AbsencePermitUnitTest extends TestCase
         $this->assertInstanceOf(AbsencePermitType::class, $absencePermit->absencePermitType);
     }
 
-    /** @test */
+    #[Test]
     public function an_absence_permit_belongs_to_a_document_if_available()
     {
         $absencePermit = AbsencePermit::factory()->create(['document_id' => null]);

@@ -7,12 +7,14 @@ use App\Models\Student;
 use App\Models\School;
 use App\Models\ClassGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class StudentUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_fill_mass_assignable_fields()
     {
         $school = School::factory()->create();
@@ -33,7 +35,7 @@ class StudentUnitTest extends TestCase
         $this->assertEquals('John Doe', $student->student_name);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_class_group()
     {
         $school = School::factory()->create();
@@ -44,7 +46,7 @@ class StudentUnitTest extends TestCase
         $this->assertEquals($classGroup->id, $student->classGroup->id);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_school()
     {
         $school = School::factory()->create();
@@ -54,7 +56,7 @@ class StudentUnitTest extends TestCase
         $this->assertEquals($school->id, $student->school->id);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_attendances()
     {
         $student = Student::factory()->create();
@@ -64,7 +66,7 @@ class StudentUnitTest extends TestCase
         $this->assertInstanceOf(\App\Models\Attendance::class, $student->attendances->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_required_fields()
     {
         $this->expectException(\Illuminate\Database\QueryException::class);
@@ -76,7 +78,7 @@ class StudentUnitTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_gender_enum()
     {
         $this->expectException(\Illuminate\Database\QueryException::class);

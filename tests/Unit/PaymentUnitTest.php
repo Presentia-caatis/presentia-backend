@@ -7,12 +7,14 @@ use App\Models\Payment;
 use App\Models\School;
 use App\Models\SubscriptionPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class PaymentUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_has_fillable_attributes()
     {
         $payment = new Payment();
@@ -22,7 +24,7 @@ class PaymentUnitTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_belongs_to_a_school()
     {
         $school = School::factory()->create();
@@ -31,7 +33,7 @@ class PaymentUnitTest extends TestCase
         $this->assertEquals($school->id, $payment->School->id);
     }
 
-    /** @test */
+    #[Test]
     public function it_belongs_to_a_subscription_plan()
     {
         $plan = SubscriptionPlan::factory()->create();

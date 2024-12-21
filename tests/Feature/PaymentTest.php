@@ -8,6 +8,8 @@ use App\Models\Payment;
 use App\Models\School;
 use App\Models\SubscriptionPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class PaymentTest extends TestCase
 {
@@ -34,7 +36,7 @@ class PaymentTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_can_list_all_payments()
     {
         Payment::factory()->count(3)->create();
@@ -49,7 +51,7 @@ class PaymentTest extends TestCase
             ->assertJsonCount(3, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_store_a_new_payment()
     {
         $school = School::factory()->create();
@@ -75,7 +77,7 @@ class PaymentTest extends TestCase
         $this->assertDatabaseHas('payments', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_payment()
     {
         $payment = Payment::factory()->create();
@@ -93,7 +95,7 @@ class PaymentTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_payment()
     {
         $school = School::factory()->create();
@@ -126,7 +128,7 @@ class PaymentTest extends TestCase
         $this->assertDatabaseHas('payments', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_payment()
     {
         $payment = Payment::factory()->create();

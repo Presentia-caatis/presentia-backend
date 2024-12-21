@@ -8,6 +8,8 @@ use App\Models\Student;
 use App\Models\School;
 use App\Models\ClassGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class StudentTest extends TestCase
 {
@@ -31,7 +33,7 @@ class StudentTest extends TestCase
 
     }
     
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_students()
     {
         $school = School::factory()->create();
@@ -51,7 +53,7 @@ class StudentTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_new_student()
     {
         $school = School::factory()->create();
@@ -76,7 +78,7 @@ class StudentTest extends TestCase
         $this->assertDatabaseHas('students', $data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_a_single_student()
     {
         $student = Student::factory()->create();
@@ -94,7 +96,7 @@ class StudentTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_student()
     {
         $student = Student::factory()->create();
@@ -122,7 +124,7 @@ class StudentTest extends TestCase
         $this->assertDatabaseHas('students', $data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_student()
     {
         $student = Student::factory()->create();

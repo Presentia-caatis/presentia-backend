@@ -6,6 +6,8 @@ use Tests\TestCase;
 use App\Models\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class FeatureTest extends TestCase
 {
@@ -30,7 +32,7 @@ class FeatureTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_features()
     {
         Feature::factory()->count(5)->create();
@@ -47,7 +49,7 @@ class FeatureTest extends TestCase
                  ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_feature()
     {
         $data = [
@@ -71,7 +73,7 @@ class FeatureTest extends TestCase
         $this->assertDatabaseHas('features', $data);
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_to_create_feature_with_invalid_data()
     {
         $data = [
@@ -84,7 +86,7 @@ class FeatureTest extends TestCase
                  ->assertJsonValidationErrors(['feature_name']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_a_single_feature()
     {
         $feature = Feature::factory()->create();
@@ -103,7 +105,7 @@ class FeatureTest extends TestCase
                  ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_feature()
     {
         $feature = Feature::factory()->create();
@@ -124,7 +126,7 @@ class FeatureTest extends TestCase
         $this->assertDatabaseHas('features', array_merge(['id' => $feature->id], $updatedData));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_feature()
     {
         $feature = Feature::factory()->create();

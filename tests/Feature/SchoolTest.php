@@ -9,6 +9,8 @@ use App\Models\SchoolFeature;
 use App\Models\Feature;
 use App\Models\SubscriptionPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class SchoolTest extends TestCase
 {
@@ -35,7 +37,7 @@ class SchoolTest extends TestCase
     }
 
     // School
-    /** @test */
+    #[Test]
     public function it_can_list_all_schools()
     {
         School::factory()->count(3)->create();
@@ -50,7 +52,7 @@ class SchoolTest extends TestCase
             ->assertJsonCount(3, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_store_a_new_school()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -73,7 +75,7 @@ class SchoolTest extends TestCase
         $this->assertDatabaseHas('schools', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_school()
     {
         $school = School::factory()->create();
@@ -91,7 +93,7 @@ class SchoolTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_school()
     {
         $school = School::factory()->create();
@@ -116,7 +118,7 @@ class SchoolTest extends TestCase
         $this->assertDatabaseHas('schools', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_school()
     {
         $school = School::factory()->create();
@@ -133,7 +135,7 @@ class SchoolTest extends TestCase
     }
 
     // School Feature
-    /** @test */
+    #[Test]
     public function it_can_list_all_school_features()
     {
         SchoolFeature::factory()->count(3)->create();
@@ -148,7 +150,7 @@ class SchoolTest extends TestCase
             ->assertJsonCount(3, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_store_a_new_school_feature()
     {
         $school = School::factory()->create();
@@ -171,7 +173,7 @@ class SchoolTest extends TestCase
         $this->assertDatabaseHas('school_features', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_school_feature()
     {
         $schoolFeature = SchoolFeature::factory()->create();
@@ -185,7 +187,7 @@ class SchoolTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_school_feature()
     {
         $school = School::factory()->create();
@@ -213,7 +215,7 @@ class SchoolTest extends TestCase
         $this->assertDatabaseHas('school_features', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_school_feature()
     {
         $schoolFeature = SchoolFeature::factory()->create();

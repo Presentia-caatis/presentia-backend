@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\School;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class SubscriptionTest extends TestCase
 {
@@ -33,7 +35,7 @@ class SubscriptionTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_subscription_features()
     {
         SubscriptionFeature::factory()->count(5)->create();
@@ -44,7 +46,7 @@ class SubscriptionTest extends TestCase
                  ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_subscription_feature()
     {
         $feature = Feature::factory()->create();
@@ -61,7 +63,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription feature created successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_subscription_feature()
     {
         $subscriptionFeature = SubscriptionFeature::factory()->create();
@@ -72,7 +74,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription feature retrieved successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_subscription_feature()
     {
         $subscriptionFeature = SubscriptionFeature::factory()->create();
@@ -83,7 +85,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription feature deleted successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_error_if_subscription_feature_not_found()
     {
         $response = $this->getJson('/api/subscription-feature/999');
@@ -96,7 +98,7 @@ class SubscriptionTest extends TestCase
 
     //Subscription History
 
-        /** @test */
+        #[Test]
         public function it_can_retrieve_all_subscription_histories()
         {
             SubscriptionHistory::factory()->count(5)->create();
@@ -107,7 +109,7 @@ class SubscriptionTest extends TestCase
                      ->assertJsonCount(5, 'data');
         }
     
-        /** @test */
+        #[Test]
         public function it_can_create_a_subscription_history()
         {
             $school = school::factory()->create();
@@ -124,7 +126,7 @@ class SubscriptionTest extends TestCase
                      ->assertJson(['status' => 'success', 'message' => 'Subscription history created successfully']);
         }
     
-        /** @test */
+        #[Test]
         public function it_can_show_a_subscription_history()
         {
             $subscriptionHistory = SubscriptionHistory::factory()->create();
@@ -135,7 +137,7 @@ class SubscriptionTest extends TestCase
                      ->assertJson(['status' => 'success', 'message' => 'Subscription history retrieved successfully']);
         }
     
-        /** @test */
+        #[Test]
         public function it_can_delete_a_subscription_history()
         {
             $subscriptionHistory = SubscriptionHistory::factory()->create();
@@ -146,7 +148,7 @@ class SubscriptionTest extends TestCase
                      ->assertJson(['status' => 'success', 'message' => 'Subscription history deleted successfully']);
         }
     
-        /** @test */
+        #[Test]
         public function it_returns_error_if_subscription_history_not_found()
         {
             $response = $this->getJson('/api/subscription-history/999');
@@ -159,7 +161,7 @@ class SubscriptionTest extends TestCase
 
     //Subcsription Plans
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_subscription_plans()
     {
         SubscriptionPlan::factory()->count(5)->create();
@@ -170,7 +172,7 @@ class SubscriptionTest extends TestCase
                  ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_subscription_plan()
     {
         $data = [
@@ -185,7 +187,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription plan created successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_subscription_plan()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -196,7 +198,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription plan retrieved successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_subscription_plan()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -215,7 +217,7 @@ class SubscriptionTest extends TestCase
         $this->assertDatabaseHas('subscription_plans', ['subscription_name' => 'Updated Plan']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_subscription_plan()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -226,7 +228,7 @@ class SubscriptionTest extends TestCase
                  ->assertJson(['status' => 'success', 'message' => 'Subscription plan deleted successfully']);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_error_if_subscription_plan_not_found()
     {
         $response = $this->getJson('/api/subscription-plan/999');

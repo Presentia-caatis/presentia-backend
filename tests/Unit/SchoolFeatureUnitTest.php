@@ -5,12 +5,14 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\SchoolFeature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class SchoolFeatureUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_belongs_to_school()
     {
         $schoolFeature = SchoolFeature::factory()->create();
@@ -18,7 +20,7 @@ class SchoolFeatureUnitTest extends TestCase
         $this->assertNotNull($schoolFeature->school);
     }
 
-    /** @test */
+    #[Test]
     public function it_belongs_to_feature()
     {
         $schoolFeature = SchoolFeature::factory()->create();
