@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserController extends Controller
 {
@@ -31,7 +32,7 @@ class UserController extends Controller
             'status' => 'success',
             'message' => 'Schools retrieved successfully',
             'data' => $User->load('school')
-        ],201);
+        ], 201);
 
     }
 
@@ -44,13 +45,13 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
-        
+
         $data = User::create($request->all());
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
             'data' => $data
-        ],201);
+        ], 201);
 
     }
 
@@ -63,6 +64,21 @@ class UserController extends Controller
             'data' => $User->load('school')
         ]);
 
+    }
+
+    public function showByToken(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            throw new UnauthorizedHttpException('Bearer', 'User not authenticated');
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User retrieved successfully',
+            'data' => $user->load('school')
+        ]);
     }
 
     public function update(Request $request, User $User)
