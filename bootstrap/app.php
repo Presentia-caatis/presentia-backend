@@ -14,8 +14,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web(prepend: [
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
+
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
         $middleware->alias([
@@ -29,7 +37,13 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // Handle ValidationException
+        $exceptions->renderable(function (\Laravel\Socialite\Two\InvalidStateException $e, $request) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid state during authentication.',
+            ], 400);
+        });
+
         $exceptions->renderable(function (ValidationException $e, $request) {
             return response()->json([
                 'status' => 'error',
