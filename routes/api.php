@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\{
+    Auth\AuthenticatedSessionController,
     FeatureController,
     SubscriptionPlanController,
     SubscriptionFeatureController,
@@ -36,12 +37,7 @@ use App\Http\Controllers\{
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::get('/authenticated', function () {
-        return response()->json([
-            'status' => 'success',
-            'message' => 'You are already logged in.',
-        ], 200);
-    })->name('authenticated');
+    Route::get('/authenticated', [AuthenticatedSessionController::class, 'redirectAuthenticatedRoute'])->name('authenticated');
 
     // User Routes
     Route::prefix('user')->group(function () {

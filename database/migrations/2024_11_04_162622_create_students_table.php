@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("class_group_id")->nullable()->constrained("class_groups");
             $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
+            //aktif student
             $table->string("nis");
             $table->string("nisn");
             $table->string("student_name");

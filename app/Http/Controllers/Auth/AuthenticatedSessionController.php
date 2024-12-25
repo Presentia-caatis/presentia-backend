@@ -46,4 +46,12 @@ class AuthenticatedSessionController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
+
+    public function redirectAuthenticatedRoute(Request $request)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'You are already logged in.',
+        ], 200);
+    }
 }

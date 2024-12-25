@@ -39,6 +39,12 @@ class SocialiteController extends Controller
 
             return redirect(env('APP_URL') . '/login?status=existing_user&token=' . $token);
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Authentication failed.', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
             return redirect(env('APP_URL') . '/login?status=error&message=' . urlencode('Authentication failed.'));
         }
     }
