@@ -26,6 +26,7 @@ class SchoolUnitTest extends TestCase
         $data = [
             'subscription_plan_id' => $subscriptionPlan->id,
             'school_name' => 'Test School',
+            'address' => 'Unknown',
             'latest_subscription' => now()->toDateString(),
             'end_subscription' => now()->addMonth()->toDateString(),
         ];
