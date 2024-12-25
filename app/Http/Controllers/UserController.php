@@ -66,7 +66,7 @@ class UserController extends Controller
 
     }
 
-    public function showByToken(Request $request)
+    public function getByToken(Request $request)
     {
         $user = $request->user();
 

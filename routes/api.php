@@ -44,7 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [UserController::class, 'index']);
         Route::post('/', [UserController::class, 'store']);
         Route::post('/link-to-school/{user}', [UserController::class, 'linkToSchool']);
-        Route::get('/show-by-token', [UserController::class, 'showByToken']);
+        Route::get('/get-by-token', [UserController::class, 'getByToken']);
         Route::get('/{user}', [UserController::class, 'show']);
         Route::put('/{user}', [UserController::class, 'update']);
         Route::delete('/{user}', [UserController::class, 'destroy']);
