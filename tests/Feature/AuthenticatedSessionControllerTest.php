@@ -16,12 +16,12 @@ class AuthenticatedSessionControllerTest extends TestCase
     public function test_login_successful()
     {
         $user = User::factory()->create([
-            'email' => 'test@example.com',
+            'email_or_username' => 'test@example.com',
             'password' => bcrypt('password')
         ]);
 
         $response = $this->postJson('/login', [
-            'email' => 'test@example.com',
+            'email_or_username' => 'test@example.com',
             'password' => 'password',
         ]);
 
@@ -32,12 +32,12 @@ class AuthenticatedSessionControllerTest extends TestCase
     public function test_login_fails_with_wrong_credentials()
     {
         $user = User::factory()->create([
-            'email' => 'test@example.com',
+            'email_or_username' => 'test@example.com',
             'password' => bcrypt('password')
         ]);
 
         $response = $this->postJson('/login', [
-            'email' => 'test@example.com',
+            'email_or_username' => 'test@example.com',
             'password' => 'wrongpassword',
         ]);
 

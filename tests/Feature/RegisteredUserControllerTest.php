@@ -19,6 +19,7 @@ class RegisteredUserControllerTest extends TestCase
         $response = $this->postJson('/register', [
             'username' => 'TestUser',
             'email' => 'newuser@example.com',
+            'fullname' => 'New User',
             'password' => 'password',
             'password_confirmation' => 'password'
         ]);

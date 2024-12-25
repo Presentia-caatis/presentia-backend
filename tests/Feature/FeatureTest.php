@@ -20,7 +20,7 @@ class FeatureTest extends TestCase
         // Create a user and login to get the API token
         $user = User::factory()->create();
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',
         ]);
 

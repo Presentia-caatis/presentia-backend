@@ -23,7 +23,7 @@ class SchoolTest extends TestCase
         
         $user = User::factory()->create();
         $response = $this->postJson('/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',  
         ]);
 

@@ -23,7 +23,7 @@ class SubscriptionTest extends TestCase
 
         $user = User::factory()->create();
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',
         ]);
 
