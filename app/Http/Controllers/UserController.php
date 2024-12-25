@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
+use Illuminate\Validation\Rules;
+
 class UserController extends Controller
 {
     public function index()
@@ -42,15 +44,19 @@ class UserController extends Controller
             'fullname' => 'required|string|min:3|max:100|regex:/^[a-zA-Z \'\\\\]+$/',
             'username' => 'required|string|alpha_dash|min:3|max:50|unique:users,username',
             'school_id' => 'nullable|exists:schools,id',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $data = User::create($request->all());
+        $data = $request->all();
+        $data['password'] = \Illuminate\Support\Facades\Hash::make($request->password);
+
+        $user = User::create($data);
+
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
-            'data' => $data
+            'data' => $user
         ], 201);
 
     }
@@ -87,8 +93,8 @@ class UserController extends Controller
             'fullname' => 'required|string|min:3|max:100|regex:/^[a-zA-Z \'\\\\]+$/',
             'username' => 'required|string|alpha_dash|min:3|max:50|unique:users,username',
             'school_id' => 'nullable|exists:schools,id',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         $User->update($request->all());
         return response()->json([

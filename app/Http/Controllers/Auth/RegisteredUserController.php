@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'fullname' => 'required|string|min:3|max:100|regex:/^[a-zA-Z \'\\\\]+$/',
-            'username' => ['required', 'string', 'max:255'],
+            'username' => 'required|string|alpha_dash|min:3|max:50|unique:users,username',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
