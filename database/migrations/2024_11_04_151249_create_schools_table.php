@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("subscription_plan_id")->constrained("subscription_plans");
             $table->string("school_name");
+            $table->string("address");
             $table->dateTime("latest_subscription");
             $table->dateTime("end_subscription");
             $table->timestamps();

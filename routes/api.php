@@ -26,6 +26,7 @@ use App\Http\Controllers\{
     StudentController,
     AttendanceLateTypeController,
     AttendanceLateTypeSchoolController,
+    UserController,
     AttendanceController,
     DocumentController,
     AbsencePermitTypeController,
@@ -41,6 +42,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'message' => 'You are already logged in.',
         ], 200);
     })->name('authenticated');
+
+    // User Routes
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'store']);
+        Route::post('/link-to-school/{user}', [UserController::class, 'linkToSchool']);
+        Route::get('/show-by-token', [UserController::class, 'showByToken']);
+        Route::get('/{user}', [UserController::class, 'show']);
+        Route::put('/{user}', [UserController::class, 'update']);
+        Route::delete('/{user}', [UserController::class, 'destroy']);
+    });
 
     // Feature Routes
     Route::prefix('feature')->group(function () {
@@ -186,3 +198,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{absencePermit}', [AbsencePermitController::class, 'destroy']);
     });
 });
+

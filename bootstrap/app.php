@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,6 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__ . '/../routes/api.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
+        then: function () {
+            Route::middleware('web')
+                ->prefix('api')
+                ->group(base_path('routes/auth.php'));
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->api(prepend: [
@@ -29,13 +35,19 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // Handle ValidationException
+        $exceptions->renderable(function (\Laravel\Socialite\Two\InvalidStateException $e, $request) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid state during authentication.',
+            ], 400);
+        });
+
         $exceptions->renderable(function (ValidationException $e, $request) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Validation failed',
                 'errors' => $e->errors(),
-            ], 422); 
+            ], 422);
         });
 
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {
