@@ -24,7 +24,7 @@ class SocialiteController extends Controller
     {
 
         try {
-        $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
 
             $user = User::where('email', $googleUser->email)->first();
