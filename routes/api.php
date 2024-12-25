@@ -198,3 +198,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{absencePermit}', [AbsencePermitController::class, 'destroy']);
     });
 });
+
