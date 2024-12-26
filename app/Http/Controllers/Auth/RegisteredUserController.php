@@ -26,6 +26,7 @@ class RegisteredUserController extends Controller
             'username' => 'required|string|alpha_dash|min:3|max:50|unique:users,username',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'google_id' => 'required|string'
         ]);
     
 
@@ -40,7 +41,8 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'fullname' => $request->fullname
+            'fullname' => $request->fullname,
+            'google_id' => $request->google_id
         ]);
 
         event(new Registered($user));
