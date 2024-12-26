@@ -21,7 +21,7 @@ class AuthenticatedSessionController extends Controller
         $user = $request->user();
 
         $user->tokens()->delete();
-        
+
         $token = $user->createToken('api-token');
 
         return response()->json([
@@ -52,6 +52,8 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'You are already logged in.',
+            'user' => $request->user(),
+            'token' => $request->session()->token()
         ], 200);
     }
 }

@@ -34,7 +34,7 @@ class SocialiteController extends Controller
             }
 
             // Jika user sudah ada, buat token dan redirect ke dashboard
-            $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $user->createToken('api-token')->plainTextToken;
 
             return redirect(env('APP_URL') . '/login?status=existing_user&token=' . $token);
         } catch (\Exception $e) {
