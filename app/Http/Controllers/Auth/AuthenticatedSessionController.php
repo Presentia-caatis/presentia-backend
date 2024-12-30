@@ -18,6 +18,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->authenticate();
 
+        $request->session()->regenerate();
+
         $user = $request->user();
 
         $user->tokens()->delete();
@@ -27,7 +29,7 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             "user" => $user,
             "token" => $token->plainTextToken,
-        ]);
+        ], 200);
     }
 
     /**
@@ -44,16 +46,14 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
-        ]);
+        ], 200);
     }
 
     public function redirectAuthenticatedRoute(Request $request)
     {
+
         return response()->json([
-            'status' => 'success',
-            'message' => 'You are already logged in.',
-            'user' => $request->user(),
-            'token' => $request->session()->token()
-        ], 200);
+            "user" => "kontol",
+        ]);
     }
 }

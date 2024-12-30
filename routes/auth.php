@@ -10,16 +10,14 @@ use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(SocialiteController::class)->group(function () {
-    Route::get('auth/google', 'googleLogin')->name('auth.google')->middleware('guest');
-    Route::get('auth/google-callback', 'googleAuthentication')->name('auth.google-callback')->middleware('guest');
+    Route::get('auth/google', 'googleLogin')->name('auth.google');
+    Route::get('auth/google-callback', 'googleAuthentication')->name('auth.google-callback');
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest')
     ->name('register');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest')
     ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])

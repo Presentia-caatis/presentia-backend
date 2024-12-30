@@ -37,8 +37,6 @@ use App\Http\Controllers\{
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::get('/authenticated', [AuthenticatedSessionController::class, 'redirectAuthenticatedRoute'])->name('authenticated');
-
     // User Routes
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index']);
