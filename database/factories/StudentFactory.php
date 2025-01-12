@@ -19,6 +19,7 @@ class StudentFactory extends Factory
         return [
             'school_id' => \App\Models\School::factory(), 
             'class_group_id' => \App\Models\ClassGroup::factory(),
+            'is_active' => true,
             'nis' => $this->faker->unique()->numerify('NIS####'),
             'nisn' => $this->faker->unique()->numerify('NISN####'),
             'student_name' => $this->faker->name,

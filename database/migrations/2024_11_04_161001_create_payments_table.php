@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
             $table->foreignId("subscription_plan_id")->constrained("subscription_plans");
-            $table->dateTime("payment_date");
+            $table->timestamp("payment_date");
             $table->string("payment_method");
             $table->integer("amount");
             $table->string("status");

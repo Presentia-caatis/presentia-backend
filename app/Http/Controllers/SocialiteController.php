@@ -31,13 +31,13 @@ class SocialiteController extends Controller
             $user = User::where('google_id', $googleUser->id)->first();
 
             if (!$user) {
-                return redirect(env('FRONTEND_URL') . '/login?status=new_user&name=' . urlencode($googleUser->name) . '&email=' . urlencode($googleUser->email) . '&google_id=' . urlencode($googleUser->id));
+                //return redirect(env('APP_URL') . '/login?status=new_user&name=' . urlencode($googleUser->name) . '&email=' . urlencode($googleUser->email) . '&google_id=' . urlencode($googleUser->id));
             }
-
+            
             Auth::login($user, true);
             $token = $user->createToken('api-token')->plainTextToken;
 
-            return redirect(env('FRONTEND_URL') . '/login?status=existing_user&token=' . $token);
+            return redirect(env('APP_URL') . '/login?status=existing_user&token=' . $token);
 
         } catch (\Exception $e) {
             Log::error('Authentication failed.', [
@@ -46,7 +46,7 @@ class SocialiteController extends Controller
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
             ]);
-            return redirect(env('FRONTEND_URL') . '/login?status=error&message=' . urlencode('Authentication failed.'));
+            return redirect(env('APP_URL') . '/login?status=error&message=' . urlencode('Authentication failed.'));
         }
     }
 }

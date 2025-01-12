@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\{
-    Auth\AuthenticatedSessionController,
+    TimeController,
     FeatureController,
     SubscriptionPlanController,
     SubscriptionFeatureController,
@@ -36,6 +36,11 @@ use App\Http\Controllers\{
 };
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // Time Routes
+    Route::prefix('time')->group(function() {
+        Route::get('/', [TimeController::class, 'getCurrentTime']);
+    });
 
     // User Routes
     Route::prefix('user')->group(function () {

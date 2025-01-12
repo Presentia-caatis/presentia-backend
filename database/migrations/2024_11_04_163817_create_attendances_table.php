@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("student_id")->constrained("students")->cascadeOnDelete();
             $table->foreignId("attendance_late_type_id")->constrained("attendance_late_types")->cascadeOnDelete();
-            $table->dateTime("check_in_time");
-            $table->dateTime("check_out_time");
+            $table->timestamp("check_in_time");
+            $table->timestamp("check_out_time");
             $table->timestamps();
         });
     }

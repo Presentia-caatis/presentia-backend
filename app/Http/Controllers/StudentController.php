@@ -25,6 +25,7 @@ class StudentController extends Controller
         $request->validate([
             'school_id' => 'required|exists:schools,id',
             'class_group_id' => 'nullable|exists:class_groups,id',
+            'is_active' => 'nullable|boolean',
             'nis' => 'required|string',
             'nisn' => 'required|string',
             'student_name' => 'required|string',
@@ -58,6 +59,7 @@ class StudentController extends Controller
         $request->validate([
             'school_id' => 'required|exists:schools,id',
             'class_group_id' => 'nullable|exists:class_groups,id',
+            'is_active' => 'nullable|boolean',
             'nis' => 'required|string',
             'nisn' => 'required|string',
             'student_name' => 'required|string',
