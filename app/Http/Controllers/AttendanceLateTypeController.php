@@ -26,6 +26,7 @@ class AttendanceLateTypeController extends Controller
             'type_name' => 'required|string',
             'description' => 'required|string',
             'is_active' => 'required|boolean',
+            'school_id' => 'required|exists:schools,id',
         ],201);
 
 
@@ -55,6 +56,7 @@ class AttendanceLateTypeController extends Controller
             'type_name' => 'required|string',
             'description' => 'required|string',
             'is_active' => 'required|boolean',
+            'school_id' => 'required|exists:schools,id',
         ]);
 
         $attendanceLateType->update($request->all());

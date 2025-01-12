@@ -20,6 +20,7 @@ class AttendanceLateTypeFactory extends Factory
             'type_name' => $this->faker->word,
             'description' => $this->faker->sentence,
             'is_active' => $this->faker->boolean,
+            'school_id' => \App\Models\School::factory(), 
         ];
     }
 }

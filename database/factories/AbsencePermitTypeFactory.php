@@ -19,6 +19,7 @@ class AbsencePermitTypeFactory extends Factory
         return [
             'permit_name' => $this->faker->word,
             'is_active' => $this->faker->boolean,
+            'school_id' => \App\Models\School::factory(), 
         ];
     }
 }
