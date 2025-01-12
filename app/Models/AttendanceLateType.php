@@ -12,7 +12,7 @@ class AttendanceLateType extends Model
     protected $fillable = [
         'type_name',
         'description',
-        'active_status',
+        'is_active',
     ];
 
     public function attendances()

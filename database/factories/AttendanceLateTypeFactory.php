@@ -19,7 +19,7 @@ class AttendanceLateTypeFactory extends Factory
         return [
             'type_name' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'active_status' => $this->faker->boolean,
+            'is_active' => $this->faker->boolean,
         ];
     }
 }

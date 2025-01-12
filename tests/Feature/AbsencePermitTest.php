@@ -130,7 +130,7 @@ class AbsencePermitTest extends TestCase
                 'status',
                 'message',
                 'data' => [
-                    '*' => ['id', 'permit_name', 'active_status', 'created_at', 'updated_at']
+                    '*' => ['id', 'permit_name', 'is_active', 'created_at', 'updated_at']
                 ]
             ]);
     }
@@ -141,7 +141,7 @@ class AbsencePermitTest extends TestCase
 
         $payload = [
             'permit_name' => 'Sick Leave',
-            'active_status' => true,
+            'is_active' => true,
         ];
 
         $response = $this->postJson('/api/absence-permit-type', $payload);
@@ -160,7 +160,7 @@ class AbsencePermitTest extends TestCase
 
         $payload = [
             'permit_name' => 'Updated Leave',
-            'active_status' => true,
+            'is_active' => true,
         ];
 
         $response = $this->putJson("/api/absence-permit-type/{$absencePermitType->id}", $payload);

@@ -25,7 +25,7 @@ class AttendanceLateTypeController extends Controller
         $request->validate([
             'type_name' => 'required|string',
             'description' => 'required|string',
-            'active_status' => 'required|boolean',
+            'is_active' => 'required|boolean',
         ],201);
 
 
@@ -54,7 +54,7 @@ class AttendanceLateTypeController extends Controller
         $request->validate([
             'type_name' => 'required|string',
             'description' => 'required|string',
-            'active_status' => 'required|boolean',
+            'is_active' => 'required|boolean',
         ]);
 
         $attendanceLateType->update($request->all());

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("type_name");
             $table->string("description");
-            $table->boolean("active_status");
+            $table->boolean("is_active")->default(true);
+            $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
             $table->timestamps();
         });
     }

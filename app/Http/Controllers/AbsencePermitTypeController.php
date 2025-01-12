@@ -24,7 +24,7 @@ class AbsencePermitTypeController extends Controller
     {
         $request->validate([
             'permit_name' => 'required|string',
-            'active_status' => 'required|boolean'
+            'is_active' => 'required|boolean'
         ]);
 
 
@@ -49,7 +49,7 @@ class AbsencePermitTypeController extends Controller
     {
         $request->validate([
             'permit_name' => 'required|string',
-            'active_status' => 'required|boolean'
+            'is_active' => 'required|boolean'
         ]);
 
         $absencePermitType->update($request->all());

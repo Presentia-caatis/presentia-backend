@@ -18,7 +18,7 @@ class AbsencePermitTypeFactory extends Factory
     {
         return [
             'permit_name' => $this->faker->word,
-            'active_status' => $this->faker->boolean,
+            'is_active' => $this->faker->boolean,
         ];
     }
 }

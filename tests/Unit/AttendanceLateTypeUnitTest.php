@@ -40,14 +40,14 @@ class AttendanceLateTypeUnitTest extends TestCase
         $lateType = AttendanceLateType::create([
             'type_name' => 'Late',
             'description' => 'Arrived late to school',
-            'active_status' => true,
+            'is_active' => true,
         ]);
 
         $this->assertDatabaseHas('attendance_late_types', [
             'id' => $lateType->id,
             'type_name' => 'Late',
             'description' => 'Arrived late to school',
-            'active_status' => true,
+            'is_active' => true,
         ]);
     }
 }

@@ -11,7 +11,7 @@ class AbsencePermitType extends Model
 
     protected $fillable = [
         'permit_name',
-        'active_status',
+        'is_active',
     ];
 
     public function absencePermits()
