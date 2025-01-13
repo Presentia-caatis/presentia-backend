@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscription_plans', function (Blueprint $table) {
-            $table->id();
-            $table->string("subscription_name");
-            $table->integer("billing_cycle_month");
-            $table->integer("price");
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();   
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscription_plans');
+        Schema::dropIfExists('events');
     }
 };

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("school_name");
             $table->string("address");
             $table->timestamp("latest_subscription");
-            $table->timestamp("end_subscription");
+            $table->timestamp("end_subscription")->nullable();
             $table->timestamps();
         });
     }

@@ -177,7 +177,7 @@ class SubscriptionTest extends TestCase
     {
         $data = [
             'subscription_name' => 'Basic Plan',
-            'billing_cycle' => 'monthly',
+            'billing_cycle_month' => 'monthly',
             'price' => 1000,
         ];
 
@@ -205,7 +205,7 @@ class SubscriptionTest extends TestCase
 
         $data = [
             'subscription_name' => 'Updated Plan',
-            'billing_cycle' => 'yearly',
+            'billing_cycle_month' => 'yearly',
             'price' => 2000,
         ];
 
