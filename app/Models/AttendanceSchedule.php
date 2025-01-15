@@ -26,9 +26,9 @@ class AttendanceSchedule extends Model
         return $this->belongsTo(Event::class);
     }
 
-    public function school()
+    public function schools()
     {
-        return $this->$this->belongsToMany(school::class, 'days')
+        return $this->belongsToMany(School::class, 'days')
         ->withTimestamps();;
     }
 }

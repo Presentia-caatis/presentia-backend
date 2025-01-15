@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->foreignId("subscription_plan_id")->constrained("subscription_plans");
+            $table->string('logo_image_path')->nullable();
             $table->string("school_name");
             $table->string("address");
             $table->timestamp("latest_subscription");

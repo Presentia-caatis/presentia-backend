@@ -28,7 +28,14 @@ class AttendanceScheduleController extends Controller
         ]);
     }
 
-
+    public function showBySchool(){
+        $data = AttendanceSchedule::with('event')->where('school_id', auth()->user()->school_id)->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attendance schedule retrieved successfully',
+            'data' => $data
+        ]);
+    }
 
 
     public function storeEvent(Request $request)

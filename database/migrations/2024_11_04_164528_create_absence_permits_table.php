@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('absence_permits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("attendance_id")->constrained("attendances")->cascadeOnDelete();
+            $table->string('attendance_id');
+            $table->foreign('attendance_id')->references('id')->on('attendances')->onDelete('cascade');
             $table->foreignId("document_id")->nullable()->constrained("documents");
             $table->foreignId("absence_permit_type_id")->constrained("absence_permit_types");
             $table->string("description");

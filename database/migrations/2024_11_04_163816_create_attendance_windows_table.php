@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('attendance_windows', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('day_id')->constrained('days');
             $table->string('name');
             $table->integer('total_present');
             $table->integer('total_absent');
+            $table->date('date');
             $table->enum('type', ['default', 'event' , 'holiday'])->default('event');
             $table->timestamp('check_in_start_time')->nullable();
             $table->timestamp('check_in_end_time')->nullable();

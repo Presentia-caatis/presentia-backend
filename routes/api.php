@@ -26,12 +26,11 @@ use App\Http\Controllers\{
     ClassGroupController,
     StudentController,
     AttendanceLateTypeController,
-    AttendanceLateTypeSchoolController,
     UserController,
+    AttendanceWindowController,
     AttendanceController,
     DocumentController,
     AbsencePermitTypeController,
-    AbsencePermitTypeSchoolController,
     AbsencePermitController
 };
 
@@ -143,15 +142,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{attendanceLateType}', [AttendanceLateTypeController::class, 'destroy']);
     });
 
-    // Attendance Late Type School Routes
-    Route::prefix('attendance-late-type-school')->group(function () {
-        Route::get('/', [AttendanceLateTypeSchoolController::class, 'index']);
-        Route::post('/', [AttendanceLateTypeSchoolController::class, 'store']);
-        Route::get('/{attendanceLateTypeSchool}', [AttendanceLateTypeSchoolController::class, 'show']);
-        Route::put('/{attendanceLateTypeSchool}', [AttendanceLateTypeSchoolController::class, 'update']);
-        Route::delete('/{attendanceLateTypeSchool}', [AttendanceLateTypeSchoolController::class, 'destroy']);
-    });
-
     // Attendance Routes
     Route::prefix('attendance')->group(function () {
         Route::get('/', [AttendanceController::class, 'index']);
@@ -179,14 +169,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{absencePermitType}', [AbsencePermitTypeController::class, 'destroy']);
     });
 
-    // Absence Permit Type School Routes
-    Route::prefix('absence-permit-type-school')->group(function () {
-        Route::get('/', [AbsencePermitTypeSchoolController::class, 'index']);
-        Route::post('/', [AbsencePermitTypeSchoolController::class, 'store']);
-        Route::get('/{absencePermitTypeSchool}', [AbsencePermitTypeSchoolController::class, 'show']);
-        Route::put('/{absencePermitTypeSchool}', [AbsencePermitTypeSchoolController::class, 'update']);
-        Route::delete('/{absencePermitTypeSchool}', [AbsencePermitTypeSchoolController::class, 'destroy']);
-    });
 
     // Absence Permit Routes
     Route::prefix('absence-permit')->group(function () {
@@ -195,6 +177,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{absencePermit}', [AbsencePermitController::class, 'show']);
         Route::put('/{absencePermit}', [AbsencePermitController::class, 'update']);
         Route::delete('/{absencePermit}', [AbsencePermitController::class, 'destroy']);
+    });
+
+
+    Route::prefix('attendance-window')->group(function () {
+        Route::post('/generate-window', [AttendanceWindowController::class, 'generateWindow']);
     });
 });
 
