@@ -31,6 +31,8 @@ class AttendanceWindowController extends Controller
 
         $dataSchedule = $dayData->attendanceSchedule;
 
+        $date = Carbon::parse($request->date);
+
         $attendanceWindow = AttendanceWindow::create([
             'day_id' => $dayData->id,
             'name' => $dataSchedule->name . ' ' . Carbon::parse($request->date)->format('d-m-Y'),
@@ -38,10 +40,10 @@ class AttendanceWindowController extends Controller
             'total_absent' => 0,
             'date' => $request->date,
             'type' => $dataSchedule->type,
-            'check_in_start_time' => $dataSchedule->check_in_start_time,
-            'check_in_end_time' => $dataSchedule->check_in_end_time,
-            'check_out_start_time' => $dataSchedule->check_out_start_time,
-            'check_out_end_time' => $dataSchedule->check_out_end_time,
+            'check_in_start_time' => Carbon::parse($date->toDateString() . ' ' . Carbon::parse($dataSchedule->check_in_start_time)->format('H:i:s')),
+            'check_in_end_time' => Carbon::parse($date->toDateString() . ' ' . Carbon::parse($dataSchedule->check_in_end_time)->format('H:i:s')),
+            'check_out_start_time' => Carbon::parse($date->toDateString() . ' ' . Carbon::parse($dataSchedule->check_out_start_time)->format('H:i:s')),
+            'check_out_end_time' => Carbon::parse($date->toDateString() . ' ' . Carbon::parse($dataSchedule->check_out_end_time)->format('H:i:s'))
         ]);
 
         return response()->json([

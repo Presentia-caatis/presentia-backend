@@ -54,9 +54,9 @@ class AttendanceController extends Controller
 
             foreach ($attendanceLateTypes as $atc) {
 
-                \Log::info("Student ID: $studentId, Student Date: $studentDate");
-                \Log::info("Check-in Start: $checkInStart, Check-in End: " . $checkInEnd->addMinutes($atc->late_duration));
-                \Log::info("Check-out Start: $checkOutStart, Check-out End: " . $checkOutEnd->addMinutes($atc->late_duration));
+                // \Log::info("Student ID: $studentId, Student Date: $studentDate");
+                // \Log::info("Check-in Start: $checkInStart, Check-in End: " . $checkInEnd->addMinutes($atc->late_duration));
+                // \Log::info("Check-out Start: $checkOutStart, Check-out End: " . $checkOutEnd->addMinutes($atc->late_duration));
                 
                 if ($studentDate->between($checkInStart, $checkInEnd->addMinutes($atc->late_duration))) {
                     Attendance::updateOrCreate([

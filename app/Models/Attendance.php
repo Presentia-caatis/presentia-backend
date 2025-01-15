@@ -13,6 +13,7 @@ class Attendance extends Model
         'id',
         'student_id',
         'attendance_late_type_id',
+        'attendance_window_id',
         'check_in_time',
         'check_out_time',
     ];
