@@ -136,5 +136,18 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
             'school_id' => 1,
         ]);
+
+        \App\Models\AttendanceWindow::factory()->create([
+            'day_id' => 4,
+            'name' => 'Default Schedule 16-01-2025',
+            'total_present' => 0,
+            'total_absent' => 0,
+            'date' => '2025-01-16',
+            'type' => 'default',
+            'check_in_start_time' => '2025-01-16 07:00:00',
+            'check_in_end_time' => '2025-01-16 08:00:00',
+            'check_out_start_time' => '2025-01-16 16:00:00',
+            'check_out_end_time' => '2025-01-16 15:00:00',
+        ]);
     }
 }

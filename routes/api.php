@@ -183,6 +183,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     Route::prefix('attendance-window')->group(function () {
+        Route::get('/', [AttendanceWindowController::class, 'index']);
         Route::post('/generate-window', [AttendanceWindowController::class, 'generateWindow']);
     });
 });

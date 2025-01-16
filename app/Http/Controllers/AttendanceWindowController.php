@@ -13,7 +13,12 @@ class AttendanceWindowController extends Controller
 
     public function index()
     {
-        //
+        $data = AttendanceWindow::all();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attendance windows retrieved successfully',
+            'data' => $data
+        ]);
     }
 
     public function generateWindow(Request $request)
