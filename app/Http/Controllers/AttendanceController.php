@@ -26,13 +26,17 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'data' => 'required|array',
-            'data.*.id' => 'required|string',
-            'data.*.date' => 'required|date',
-        ]);
 
-        $firstDate = $request->input('data.0.date');
+
+        // $request->validate([
+        //     'data' => 'required|array',
+        //     'data.*.id' => 'required|string',
+        //     'data.*.date' => 'required|date',
+        // ]);
+
+        $jsonInput = $request->all();
+
+        $firstDate = $jsonInput['0']['date'];
         $formattedFirstDate = Carbon::parse($firstDate)->format('Y-m-d');
 
         $attendanceWindow = AttendanceWindow::whereDate('date', $formattedFirstDate)
@@ -46,10 +50,9 @@ class AttendanceController extends Controller
         $checkInEnd = Carbon::parse($attendanceWindow->check_in_end_time);
         $checkOutStart = Carbon::parse($attendanceWindow->check_out_start_time);
         $checkOutEnd = Carbon::parse($attendanceWindow->check_out_end_time);
-
         
 
-        foreach ($request->input('data') as $student) {
+        foreach ($jsonInput as $student) {
             $studentId = $student['id'];
             $studentDate = Carbon::parse($student['date']);
 
