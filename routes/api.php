@@ -34,6 +34,9 @@ use App\Http\Controllers\{
     AbsencePermitController
 };
 
+
+Route::post('/attendance', [AttendanceController::class, 'store']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Time Routes
@@ -145,7 +148,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Attendance Routes
     Route::prefix('attendance')->group(function () {
         Route::get('/', [AttendanceController::class, 'index']);
-        Route::post('/', [AttendanceController::class, 'store']);
         Route::get('/{attendance}', [AttendanceController::class, 'show']);
         Route::put('/{attendance}', [AttendanceController::class, 'update']);
         Route::delete('/{attendance}', [AttendanceController::class, 'destroy']);

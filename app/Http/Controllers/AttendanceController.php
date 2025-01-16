@@ -39,7 +39,8 @@ class AttendanceController extends Controller
             ->first();
 
 
-        $attendanceLateTypes = AttendanceLateType::where('school_id', $request->user()->school->id)->get();
+        // $attendanceLateTypes = AttendanceLateType::where('school_id', $request->user()->school->id)->get();
+        $attendanceLateTypes = AttendanceLateType::where('school_id', 1)->get();
 
         $checkInStart = Carbon::parse($attendanceWindow->check_in_start_time);
         $checkInEnd = Carbon::parse($attendanceWindow->check_in_end_time);
