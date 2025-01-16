@@ -51,6 +51,7 @@ class AttendanceController extends Controller
         $checkOutStart = Carbon::parse($attendanceWindow->check_out_start_time);
         $checkOutEnd = Carbon::parse($attendanceWindow->check_out_end_time);
         
+        $isType = false;
 
         foreach ($jsonInput as $student) {
             $studentId = $student['id'];
@@ -63,6 +64,7 @@ class AttendanceController extends Controller
                 // \Log::info("Check-out Start: $checkOutStart, Check-out End: " . $checkOutEnd->addMinutes($atc->late_duration));
                 
                 if ($studentDate->between($checkInStart, $checkInEnd->addMinutes($atc->late_duration))) {
+                    $isType = true;
                     Attendance::updateOrCreate([
                         'id' => $studentDate . '-' . $studentId,
                         'student_id' => $studentId,
@@ -72,6 +74,7 @@ class AttendanceController extends Controller
                     ]);
                     break;
                 } else if ($studentDate->between($checkOutStart, $checkOutEnd->addMinutes($atc->late_duration))) {
+                    $isType = true;
                     Attendance::updateOrCreate([
                         'id' => $studentDate . '-' . $studentId,
                         'student_id' => $studentId,
@@ -83,6 +86,16 @@ class AttendanceController extends Controller
                 }
             }
 
+
+            if (!$isType) {
+                Attendance::updateOrCreate([
+                    'id' => $studentDate . '-' . $studentId,
+                    'student_id' => $studentId,
+                    'attendance_late_type_id' => $atc->id,
+                    'attendance_window_id' => $attendanceWindow->id,
+                    'check_in_time' => $studentDate
+                ]);
+            }
 
         }
 
