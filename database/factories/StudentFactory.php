@@ -17,8 +17,9 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'school_id' => \App\Models\School::factory(), 
-            'class_group_id' => \App\Models\ClassGroup::factory(),
+            'school_id' => \App\Models\School::factory(),
+            'class_group_id' => \App\Models\ClassGroup::inRandomOrder()
+                ->first()->id,
             'is_active' => true,
             'nis' => $this->faker->unique()->numerify('NIS####'),
             'nisn' => $this->faker->unique()->numerify('NISN####'),

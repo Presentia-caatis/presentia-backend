@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("subscription_plan_id")->constrained("subscription_plans");
             $table->string('logo_image_path')->nullable();
-            $table->string("school_name");
+            $table->string("name");
             $table->string("address");
             $table->timestamp("latest_subscription");
             $table->timestamp("end_subscription")->nullable();

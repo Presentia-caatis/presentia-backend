@@ -10,6 +10,7 @@ class Attendance extends Model
     use HasFactory;
 
     protected $fillable = [
+        'school_id',
         'id',
         'student_id',
         'attendance_late_type_id',
@@ -23,9 +24,9 @@ class Attendance extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function attendanceLateType()
+    public function checkInStatus()
     {
-        return $this->belongsTo(AttendanceLateType::class);
+        return $this->belongsTo(CheckInStatus::class);
     }
 
     public function absencePermits()
