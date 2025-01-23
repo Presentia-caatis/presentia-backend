@@ -20,7 +20,7 @@ services:
       - docker-network
     depends_on:
       - db
-    command: php artisan queue:worker
+    command: php artisan queue:work
 
   caddy:
     image: caddy:latest
@@ -28,7 +28,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /var/www.html
+      - ./var/www/html
       - ./Caddyfile:/etc/caddy/Caddyfile
     networks:
       - docker-network
@@ -39,6 +39,7 @@ services:
     image: mysql:8.0
     ports:
       - "3306:3306"
+    restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USERNAME: ${DB_USERNAME}

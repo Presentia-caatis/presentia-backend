@@ -113,7 +113,7 @@ class AttendanceScheduleController extends Controller
 
 
 
-    public function update(Request $request, $school, AttendanceSchedule $attendanceSchedule)
+    public function update(Request $request, $school, $id)
     {
         $request->validate([
             'event_id' => 'nullable',
@@ -125,6 +125,7 @@ class AttendanceScheduleController extends Controller
             'check_out_end_time' => 'required|date_format:Y-m-d H:i:s'
         ]);
 
+        $attendanceSchedule = AttendanceSchedule::find($id);
         $attendanceSchedule->update($request->all());
         return response()->json([
             'status' => 'success',
