@@ -14,7 +14,7 @@ class StudentController extends Controller
     public function index()
     {
 
-        $data = Student::all();
+        $data = Student::with('classGroup')->all();
         return response()->json([
             'status' => 'success',
             'message' => 'Students retrieved successfully',

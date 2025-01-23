@@ -38,7 +38,11 @@ use App\Http\Controllers\{
 };
 
 
-Route::post('/attendance', [AttendanceController::class, 'store']);
+Route::middleware('valid-adms')->group(function() {
+    Route::post('/attendance', [AttendanceController::class, 'store']);
+});
+
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
 

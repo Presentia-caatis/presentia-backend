@@ -37,6 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
             'school' => \App\Http\Middleware\SchoolMiddleware::class,
+            'valid-adms' => \App\Http\Middleware\ADMSMiddleware::class
         ]);
 
         $middleware->validateCsrfTokens(except: [

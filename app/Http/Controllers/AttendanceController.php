@@ -14,22 +14,20 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-
         $data = Attendance::with('student', 'checkInStatus')->orderBy('check_in_time')->get();
         return response()->json([
             'status' => 'success',
             'message' => 'Attendances retrieved successfully',
             'data' => $data
         ]);
-
     }
 
 
     public function store(Request $request)
     {
-        $jsonInput = $request->all();
+        $jsonInput = $request->all(); 
 
-        $firstDate = $jsonInput['0']['date'];
+        $firstDate = $jsonInput['0']['date']; 
         $formattedFirstDate = Carbon::parse($firstDate)->format('Y-m-d');
 
         $attendanceWindow = AttendanceWindow::whereDate('date', $formattedFirstDate)
@@ -49,6 +47,11 @@ class AttendanceController extends Controller
         foreach ($jsonInput as $student) {
             $studentId = $student['id'];
             $checkDate = Carbon::parse($student['date'])->utc();
+
+            if ($checkDate->lt($checkInStart)) {
+                continue;
+            }
+
             
             $attendace = Attendance::where("student_id", $studentId)
                 ->where("check_in_time", $checkDate)
