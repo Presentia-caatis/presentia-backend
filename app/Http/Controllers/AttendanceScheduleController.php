@@ -29,6 +29,29 @@ class AttendanceScheduleController extends Controller
         ]);
     }
 
+    public function show($school, AttendanceSchedule $attendanceSchedule)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attendance windows retrieved successfully',
+            'data' => $attendanceSchedule
+        ]);
+    }
+
+    public function showByType(Request $request)
+    {
+        $request->validate([
+            'type' => 'required|in:event,default,holiday',
+        ]);
+
+        $data = AttendanceSchedule::where('type', $request->type)->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attendance windows retrieved successfully',
+            'data' => $data
+        ]);
+    }
+
 
     public function storeEvent(Request $request)
     {
@@ -90,7 +113,7 @@ class AttendanceScheduleController extends Controller
 
 
 
-    public function update(Request $request, AttendanceSchedule $attendanceSchedule)
+    public function update(Request $request, $school, AttendanceSchedule $attendanceSchedule)
     {
         $request->validate([
             'event_id' => 'nullable',
