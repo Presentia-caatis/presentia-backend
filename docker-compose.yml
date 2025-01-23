@@ -7,7 +7,7 @@ services:
     ports:
       - "9000:9000"
     depends_on:
-      - mysql
+      - db
     networks:
       - docker-network
   
@@ -19,7 +19,7 @@ services:
     networks:
       - docker-network
     depends_on:
-      - mysql
+      - db
     command: php artisan queue:worker
 
   caddy:
@@ -33,9 +33,9 @@ services:
     networks:
       - docker-network
     depends_on:
-      - mysql
+      - db
 
-  mysql:
+  db:
     image: mysql:8.0
     ports:
       - "3306:3306"
@@ -44,12 +44,12 @@ services:
       MYSQL_USERNAME: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - mysql-data:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
       - docker-network
 
 volumes:
-  mysql-data:
+  db-data:
 
 networks:
   docker-network:
