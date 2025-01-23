@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subscription_plans', function (Blueprint $table) {
             $table->id();
             $table->string("subscription_name");
-            $table->string("billing_cycle");
+            $table->integer("billing_cycle_month");
             $table->integer("price");
             $table->timestamps();
         });

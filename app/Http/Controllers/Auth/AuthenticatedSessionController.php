@@ -18,18 +18,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->authenticate();
 
+        $request->session()->regenerate();
+
         $user = $request->user();
 
-        // Update the current session ID
-        $user->update(['current_session_id' => session()->getId()]);
-
         $user->tokens()->delete();
+
         $token = $user->createToken('api-token');
 
         return response()->json([
             "user" => $user,
             "token" => $token->plainTextToken,
-        ]);
+        ], 200);
     }
 
     /**
@@ -46,6 +46,14 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
+        ], 200);
+    }
+
+    public function redirectAuthenticatedRoute(Request $request)
+    {
+
+        return response()->json([
+            "user" => "kontol",
         ]);
     }
 }

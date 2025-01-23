@@ -8,12 +8,14 @@ use App\Models\AttendanceLateType;
 use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AttendanceUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_attendance_belongs_to_a_student()
     {
         $attendance = Attendance::factory()->create();
@@ -21,7 +23,7 @@ class AttendanceUnitTest extends TestCase
         $this->assertInstanceOf(Student::class, $attendance->student);
     }
 
-    /** @test */
+    #[Test]
     public function an_attendance_belongs_to_an_attendance_late_type()
     {
         $attendance = Attendance::factory()->create();
@@ -29,7 +31,7 @@ class AttendanceUnitTest extends TestCase
         $this->assertInstanceOf(AttendanceLateType::class, $attendance->attendanceLateType);
     }
 
-    /** @test */
+    #[Test]
     public function an_attendance_has_many_absence_permits()
     {
         $attendance = Attendance::factory()->create();
@@ -38,7 +40,7 @@ class AttendanceUnitTest extends TestCase
         $this->assertCount(3, $attendance->absencePermits);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_attendance_record()
     {
         $student = Student::factory()->create();

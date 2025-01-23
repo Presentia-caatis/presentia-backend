@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use App\BelongsToSchool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AttendanceLateType extends Model
+class CheckInStatus extends Model
 {
     use HasFactory;
+    use BelongsToSchool;
 
     protected $fillable = [
         'type_name',
         'description',
-        'active_status',
+        'is_active',
     ];
 
     public function attendances()

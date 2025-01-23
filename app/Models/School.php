@@ -11,9 +11,11 @@ class School extends Model
 
     protected $fillable = [
         'subscription_plan_id',
-        'school_name',
+        'name',
+        'address',
         'latest_subscription',
         'end_subscription',
+        'timezone'
     ];
 
 

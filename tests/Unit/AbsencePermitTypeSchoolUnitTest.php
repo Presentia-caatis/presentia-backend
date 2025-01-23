@@ -7,12 +7,13 @@ use App\Models\AbsencePermitTypeSchool;
 use App\Models\School;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AbsencePermitTypeSchoolUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_absence_permit_type_school_belongs_to_a_school()
     {
         $absencePermitTypeSchool = AbsencePermitTypeSchool::factory()->create();
@@ -20,7 +21,7 @@ class AbsencePermitTypeSchoolUnitTest extends TestCase
         $this->assertInstanceOf(School::class, $absencePermitTypeSchool->school);
     }
 
-    /** @test */
+    #[Test]
     public function an_absence_permit_type_school_belongs_to_an_absence_permit_type()
     {
         $absencePermitTypeSchool = AbsencePermitTypeSchool::factory()->create();

@@ -11,6 +11,8 @@ use App\Models\School;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AbsencePermitTest extends TestCase
 {
@@ -22,7 +24,7 @@ class AbsencePermitTest extends TestCase
         
         $user = User::factory()->create();
         $response = $this->postJson('/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',  
         ]);
 
@@ -37,7 +39,7 @@ class AbsencePermitTest extends TestCase
 
     // Absence Permit
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_absence_permits()
     {
 
@@ -63,7 +65,7 @@ class AbsencePermitTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_absence_permit()
     {
 
@@ -83,7 +85,7 @@ class AbsencePermitTest extends TestCase
             ->assertJson(['status' => 'success']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_an_absence_permit()
     {
 
@@ -99,7 +101,7 @@ class AbsencePermitTest extends TestCase
         $this->assertDatabaseHas('absence_permits', ['id' => $absencePermit->id, 'description' => 'Updated description']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_an_absence_permit()
     {
 
@@ -115,7 +117,7 @@ class AbsencePermitTest extends TestCase
     
     // Absence Permit Type
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_absence_permit_types()
     {
 
@@ -128,18 +130,18 @@ class AbsencePermitTest extends TestCase
                 'status',
                 'message',
                 'data' => [
-                    '*' => ['id', 'permit_name', 'active_status', 'created_at', 'updated_at']
+                    '*' => ['id', 'permit_name', 'is_active', 'created_at', 'updated_at']
                 ]
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_absence_permit_type()
     {
 
         $payload = [
             'permit_name' => 'Sick Leave',
-            'active_status' => true,
+            'is_active' => true,
         ];
 
         $response = $this->postJson('/api/absence-permit-type', $payload);
@@ -150,7 +152,7 @@ class AbsencePermitTest extends TestCase
         $this->assertDatabaseHas('absence_permit_types', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_an_absence_permit_type()
     {
 
@@ -158,7 +160,7 @@ class AbsencePermitTest extends TestCase
 
         $payload = [
             'permit_name' => 'Updated Leave',
-            'active_status' => true,
+            'is_active' => true,
         ];
 
         $response = $this->putJson("/api/absence-permit-type/{$absencePermitType->id}", $payload);
@@ -169,7 +171,7 @@ class AbsencePermitTest extends TestCase
         $this->assertDatabaseHas('absence_permit_types', ['id' => $absencePermitType->id, 'permit_name' => 'Updated Leave']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_an_absence_permit_type()
     {
 
@@ -185,7 +187,7 @@ class AbsencePermitTest extends TestCase
     
     // Absence Permit Type School
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_absence_permit_type_schools()
     {
 
@@ -203,7 +205,7 @@ class AbsencePermitTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_absence_permit_type_school()
     {
 
@@ -223,7 +225,7 @@ class AbsencePermitTest extends TestCase
         $this->assertDatabaseHas('absence_permit_type_schools', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_an_absence_permit_type_school()
     {
 

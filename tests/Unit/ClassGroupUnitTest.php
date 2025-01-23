@@ -7,12 +7,14 @@ use App\Models\School;
 use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class ClassGroupUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function a_class_group_belongs_to_a_school()
     {
         $classGroup = ClassGroup::factory()->create();
@@ -20,7 +22,7 @@ class ClassGroupUnitTest extends TestCase
         $this->assertInstanceOf(School::class, $classGroup->school);
     }
 
-    /** @test */
+    #[Test]
     public function a_class_group_has_many_students()
     {
         $classGroup = ClassGroup::factory()->create();
@@ -29,7 +31,7 @@ class ClassGroupUnitTest extends TestCase
         $this->assertCount(3, $classGroup->students);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_class_group()
     {
         $school = School::factory()->create();

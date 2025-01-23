@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('absence_permit_types', function (Blueprint $table) {
             $table->id();
             $table->string("permit_name");
-            $table->boolean("active_status");
+            $table->boolean("is_active")->default(true);
+            $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
             $table->timestamps();
         });
     }

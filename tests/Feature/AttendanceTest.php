@@ -11,6 +11,8 @@ use App\Models\ClassGroup;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AttendanceTest extends TestCase
 {
@@ -22,7 +24,7 @@ class AttendanceTest extends TestCase
         
         $user = User::factory()->create();
         $response = $this->postJson('/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',  
         ]);
 
@@ -40,7 +42,7 @@ class AttendanceTest extends TestCase
         $this->attendanceLateType = AttendanceLateType::factory()->create();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_attendances()
     {
         // Seed some attendance data
@@ -58,7 +60,7 @@ class AttendanceTest extends TestCase
                  ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_attendance_record()
     {
         $data = [
@@ -84,7 +86,7 @@ class AttendanceTest extends TestCase
         $this->assertDatabaseHas('attendances', $data);
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_to_create_attendance_with_invalid_data()
     {
         $data = [
@@ -100,7 +102,7 @@ class AttendanceTest extends TestCase
                  ->assertJsonValidationErrors(['student_id', 'attendance_late_type_id', 'check_in_time', 'check_out_time']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_a_single_attendance_record()
     {
         $attendance = Attendance::factory()->create([
@@ -127,7 +129,7 @@ class AttendanceTest extends TestCase
 
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_an_attendance_record()
     {
         $attendance = Attendance::factory()->create([
@@ -159,7 +161,7 @@ class AttendanceTest extends TestCase
         $this->assertDatabaseHas('attendances', array_merge(['id' => $attendance->id], $updatedData));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_an_attendance_record()
     {
         $attendance = Attendance::factory()->create([
@@ -179,7 +181,7 @@ class AttendanceTest extends TestCase
         $this->assertDatabaseCount('attendances', 0);
     }
 
-    /** @test */
+    #[Test]
     public function it_checks_attendance_data_is_linked_to_a_student()
     {
         $student = Student::factory()->create();

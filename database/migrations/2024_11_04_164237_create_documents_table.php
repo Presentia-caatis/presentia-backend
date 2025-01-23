@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
             $table->string("document_name");
             $table->string("path");
             $table->timestamps();

@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->foreignId("subscription_plan_id")->constrained("subscription_plans");
-            $table->string("school_name");
-            $table->dateTime("latest_subscription");
-            $table->dateTime("end_subscription");
+            $table->string('logo_image_path')->nullable();
+            $table->string("name");
+            $table->string("address");
+            $table->timestamp("latest_subscription");
+            $table->timestamp("end_subscription")->nullable();
+            $table->string('timezone')->default('UTC');
             $table->timestamps();
         });
     }

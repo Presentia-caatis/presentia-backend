@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\AttendanceLateType;
+use App\Models\CheckInStatus;
 
-class AttendanceLateTypeController extends Controller
+class CheckInStatusController extends Controller
 {
     public function index()
     {
 
-        $data = AttendanceLateType::all();
+        $data = CheckInStatus::all();
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance late types retrieved successfully',
@@ -20,16 +20,18 @@ class AttendanceLateTypeController extends Controller
 
     }
 
+    
     public function store(Request $request)
     {
         $request->validate([
             'type_name' => 'required|string',
             'description' => 'required|string',
-            'active_status' => 'required|boolean',
+            'is_active' => 'required|boolean',
+            'school_id' => 'required|exists:schools,id',
         ],201);
 
 
-        $data = AttendanceLateType::create($request->all());
+        $data = CheckInStatus::create($request->all());
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance late type created successfully',
@@ -38,42 +40,42 @@ class AttendanceLateTypeController extends Controller
 
     }
 
-    public function show(AttendanceLateType $attendanceLateType)
+    public function show(CheckInStatus $CheckInStatus)
     {
 
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance late type retrieved successfully',
-            'data' => $attendanceLateType
+            'data' => $CheckInStatus
         ]);
 
     }
 
-    public function update(Request $request, AttendanceLateType $attendanceLateType)
+    public function update(Request $request, CheckInStatus $CheckInStatus)
     {
         $request->validate([
             'type_name' => 'required|string',
             'description' => 'required|string',
-            'active_status' => 'required|boolean',
+            'is_active' => 'required|boolean',
+            'school_id' => 'required|exists:schools,id',
         ]);
 
-        $attendanceLateType->update($request->all());
+        $CheckInStatus->update($request->all());
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance late type updated successfully',
-            'data' => $attendanceLateType
+            'data' => $CheckInStatus
         ]);
 
     }
 
-    public function destroy(AttendanceLateType $attendanceLateType)
+    public function destroy(CheckInStatus $CheckInStatus)
     {
 
-        $attendanceLateType->delete();
+        $CheckInStatus->delete();
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance late type deleted successfully'
         ]);
-
     }
 }

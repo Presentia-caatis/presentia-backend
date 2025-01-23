@@ -18,7 +18,7 @@ class SubscriptionPlanFactory extends Factory
     {
         return [
             'subscription_name' => $this->faker->word,
-            'billing_cycle' => $this->faker->randomElement(['monthly', 'yearly']), 
+            'billing_cycle_month' => $this->faker->randomElement([1, 3, 6, 12]), 
             'price' => $this->faker->numberBetween(10, 100),
         ];
     }

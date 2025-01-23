@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class DocumentTest extends TestCase
 {
@@ -19,7 +21,7 @@ class DocumentTest extends TestCase
         
         $user = User::factory()->create();
         $response = $this->postJson('/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',  
         ]);
 
@@ -31,7 +33,7 @@ class DocumentTest extends TestCase
 
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_documents()
     {
         Document::factory(3)->create();
@@ -48,7 +50,7 @@ class DocumentTest extends TestCase
             ]);
     }
 
-/** @test */
+#[Test]
     public function it_can_store_a_new_document()
     {
         Storage::fake('public');
@@ -66,7 +68,7 @@ class DocumentTest extends TestCase
         Storage::disk('public')->assertExists($filePath);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_a_single_document()
     {
         $document = Document::factory()->create();
@@ -83,7 +85,7 @@ class DocumentTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_document()
     {
         Storage::fake('public');
@@ -104,7 +106,7 @@ class DocumentTest extends TestCase
         Storage::disk('public')->assertExists(Document::find($document->id)->path);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_document()
     {
         Storage::fake('public');

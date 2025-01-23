@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendance_late_types', function (Blueprint $table) {
+        Schema::create('check_in_statuses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("school_id")->constrained("schools")->cascadeOnDelete();
             $table->string("type_name");
-            $table->string("description");
-            $table->boolean("active_status");
+            $table->string("description")->nullable();
+            $table->integer("late_duration");
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendance_late_types');
+        Schema::dropIfExists('check_in_statuses');
     }
 };

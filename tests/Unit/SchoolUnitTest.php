@@ -11,12 +11,14 @@ use App\Models\Payment;
 use App\Models\AbsencePermitType;
 use App\Models\AttendanceLateType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class SchoolUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_fill_mass_assignable_fields()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -24,6 +26,7 @@ class SchoolUnitTest extends TestCase
         $data = [
             'subscription_plan_id' => $subscriptionPlan->id,
             'school_name' => 'Test School',
+            'address' => 'Unknown',
             'latest_subscription' => now()->toDateString(),
             'end_subscription' => now()->addMonth()->toDateString(),
         ];
@@ -34,7 +37,7 @@ class SchoolUnitTest extends TestCase
         $this->assertEquals($data['school_name'], $school->school_name);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_subscription_plan()
     {
         $subscriptionPlan = SubscriptionPlan::factory()->create();
@@ -44,7 +47,7 @@ class SchoolUnitTest extends TestCase
         $this->assertEquals($subscriptionPlan->id, $school->subscriptionPlan->id);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_school_features()
     {
         $school = School::factory()->create();
@@ -54,7 +57,7 @@ class SchoolUnitTest extends TestCase
         $this->assertInstanceOf(SchoolFeature::class, $school->schoolFeatures->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_subscription_histories()
     {
         $school = School::factory()->create();
@@ -64,7 +67,7 @@ class SchoolUnitTest extends TestCase
         $this->assertInstanceOf(SubscriptionHistory::class, $school->subscriptionHistories->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_payments()
     {
         $school = School::factory()->create();
@@ -74,7 +77,7 @@ class SchoolUnitTest extends TestCase
         $this->assertInstanceOf(Payment::class, $school->payments->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_absence_permit_types()
     {
         $school = School::factory()->create();
@@ -86,7 +89,7 @@ class SchoolUnitTest extends TestCase
         $this->assertInstanceOf(AbsencePermitType::class, $school->absencePermitTypes->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_relationship_with_attendance_late_types()
     {
         $school = School::factory()->create();
@@ -98,7 +101,7 @@ class SchoolUnitTest extends TestCase
         $this->assertInstanceOf(AttendanceLateType::class, $school->attendanceLateTypes->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_required_fields()
     {
         $this->expectException(\Illuminate\Database\QueryException::class);
@@ -111,7 +114,7 @@ class SchoolUnitTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_fails_when_subscription_plan_id_is_null()
     {
         $data = [
@@ -131,7 +134,7 @@ class SchoolUnitTest extends TestCase
         $this->assertDatabaseMissing('schools', ['school_name' => 'Nullable Plan School']);
     }
 
-    /** @test */
+    #[Test]
     public function it_checks_date_fields_format()
     {
         $school = School::factory()->create([
@@ -143,7 +146,7 @@ class SchoolUnitTest extends TestCase
         $this->assertEquals('2024-12-01', $school->end_subscription);
     }
 
-    /** @test */
+    #[Test]
     public function it_checks_relationship_cascade_delete()
     {
         $school = School::factory()->create();

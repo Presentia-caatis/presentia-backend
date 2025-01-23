@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AuthenticatedSessionControllerTest extends TestCase
 {
@@ -19,7 +21,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         ]);
 
         $response = $this->postJson('/login', [
-            'email' => 'test@example.com',
+            'email_or_username' => 'test@example.com',
             'password' => 'password',
         ]);
 

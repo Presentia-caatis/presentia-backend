@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AttendanceLateType>
  */
-class AttendanceLateTypeFactory extends Factory
+class CheckInStatusFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,8 @@ class AttendanceLateTypeFactory extends Factory
         return [
             'type_name' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'active_status' => $this->faker->boolean,
+            'is_active' => $this->faker->boolean,
+            'school_id' => \App\Models\School::factory(), 
         ];
     }
 }

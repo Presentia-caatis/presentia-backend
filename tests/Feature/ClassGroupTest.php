@@ -7,6 +7,8 @@ use App\Models\School;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class ClassGroupTest extends TestCase
 {
@@ -18,7 +20,7 @@ class ClassGroupTest extends TestCase
         
         $user = User::factory()->create();
         $response = $this->postJson('/login', [
-            'email' => $user->email,
+            'email_or_username' => $user->email,
             'password' => '123',  
         ]);
 
@@ -30,7 +32,7 @@ class ClassGroupTest extends TestCase
 
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_all_class_groups()
     {
 
@@ -49,7 +51,7 @@ class ClassGroupTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_class_group()
     {
 
@@ -72,7 +74,7 @@ class ClassGroupTest extends TestCase
         $this->assertDatabaseHas('class_groups', $payload);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_retrieve_a_specific_class_group()
     {
 
@@ -91,7 +93,7 @@ class ClassGroupTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_class_group()
     {
 
@@ -117,7 +119,7 @@ class ClassGroupTest extends TestCase
         $this->assertDatabaseHas('class_groups', ['id' => $classGroup->id, 'class_name' => 'Updated Class Name']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_class_group()
     {
 

@@ -7,12 +7,14 @@ use App\Models\AttendanceLateType;
 use App\Models\School;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AttendanceLateTypeUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_attendance_late_type_has_many_attendances()
     {
         $lateType = AttendanceLateType::factory()->create();
@@ -21,7 +23,7 @@ class AttendanceLateTypeUnitTest extends TestCase
         $this->assertCount(3, $lateType->attendances);
     }
 
-    /** @test */
+    #[Test]
     public function an_attendance_late_type_belongs_to_many_schools()
     {
         $lateType = AttendanceLateType::factory()->create();
@@ -32,20 +34,20 @@ class AttendanceLateTypeUnitTest extends TestCase
         $this->assertCount(3, $lateType->schools);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_attendance_late_type_record()
     {
         $lateType = AttendanceLateType::create([
             'type_name' => 'Late',
             'description' => 'Arrived late to school',
-            'active_status' => true,
+            'is_active' => true,
         ]);
 
         $this->assertDatabaseHas('attendance_late_types', [
             'id' => $lateType->id,
             'type_name' => 'Late',
             'description' => 'Arrived late to school',
-            'active_status' => true,
+            'is_active' => true,
         ]);
     }
 }

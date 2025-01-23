@@ -24,9 +24,11 @@ class SchoolController extends Controller
     {
         $request->validate([
             'subscription_plan_id' => 'required|exists:subscription_plans,id',
-            'school_name' => 'required|string',
+            'name' => 'required|string',
+            'address' => 'required|string',
             'latest_subscription' => 'required|date',
             'end_subscription' => 'required|date',
+            'timezone' => 'required|timezone'
         ]);
 
 
@@ -56,6 +58,7 @@ class SchoolController extends Controller
         $request->validate([
             'subscription_plan_id' => 'required|exists:subscription_plans,id',
             'school_name' => 'required|string',
+            'address' => 'required|string',
             'latest_subscription' => 'required|date',
             'end_subscription' => 'required|date',
         ]);

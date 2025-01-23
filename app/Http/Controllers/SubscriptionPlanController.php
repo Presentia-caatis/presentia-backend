@@ -24,7 +24,7 @@ class SubscriptionPlanController extends Controller
     {
         $request->validate([
             'subscription_name' => 'required|string',
-            'billing_cycle' => 'required|string',
+            'billing_cycle_month' => 'required|int',
             'price' => 'required|integer',
         ]);
 
@@ -50,7 +50,7 @@ class SubscriptionPlanController extends Controller
     {
         $request->validate([
             'subscription_name' => 'required|string',
-            'billing_cycle' => 'required|string',
+            'billing_cycle_month' => 'required|int',
             'price' => 'required|integer',
         ]);
         

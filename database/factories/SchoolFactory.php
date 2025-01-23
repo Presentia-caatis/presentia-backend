@@ -19,6 +19,7 @@ class SchoolFactory extends Factory
         return [
             'subscription_plan_id' => \App\Models\SubscriptionPlan::factory(),
             'school_name' => $this->faker->company,
+            'address' => $this->faker->address,
             'latest_subscription' => $this->faker->dateTimeThisYear,
             'end_subscription' => $this->faker->dateTimeThisYear,
         ];

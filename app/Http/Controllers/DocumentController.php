@@ -31,6 +31,7 @@ class DocumentController extends Controller
         $path = $request->file('file')->store($request->file('file')->extension(),'public');
 
         $data = Document::create([
+            'school_id' => $request->user()->school_id,
             'document_name' => $request->document_name,
             'path' => $path
         ]);
@@ -43,19 +44,19 @@ class DocumentController extends Controller
 
     }
 
-    public function show(Document $document)
+    public function show($school_id, $id)
     {
-
         return response()->json([
             'status' => 'success',
             'message' => 'Document retrieved successfully',
-            'data' => $document
+            'data' => Document::find($id)
         ]);
-
     }
 
-    public function update(Request $request, Document $document)
+    public function update(Request $request, $school_id, $id)
     {
+        $document = Document::find($id);
+
         $request->validate([
             'document_name' => 'sometimes|required|string',
             'file' => 'sometimes|file|mimes:jpg,jpeg,png,html,doc,docx,pdf',
@@ -84,9 +85,9 @@ class DocumentController extends Controller
 
     }
 
-    public function destroy(Document $document)
+    public function destroy($shool_id, $id)
     {
-
+        $document = Document::find($id);
         if ($document->path) {
             Storage::disk('public')->delete($document->path);
         }

@@ -11,7 +11,7 @@ class SubscriptionPlan extends Model
 
     protected $fillable = [
         'subscription_name',
-        'billing_cycle',
+        'billing_cycle_month',
         'price',
     ];
 

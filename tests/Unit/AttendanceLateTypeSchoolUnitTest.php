@@ -7,12 +7,14 @@ use App\Models\AttendanceLateTypeSchool;
 use App\Models\School;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class AttendanceLateTypeSchoolUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_attendance_late_type_school_belongs_to_a_school()
     {
         $lateTypeSchool = AttendanceLateTypeSchool::factory()->create();
@@ -20,7 +22,7 @@ class AttendanceLateTypeSchoolUnitTest extends TestCase
         $this->assertInstanceOf(School::class, $lateTypeSchool->school);
     }
 
-    /** @test */
+    #[Test]
     public function an_attendance_late_type_school_belongs_to_an_attendance_late_type()
     {
         $lateTypeSchool = AttendanceLateTypeSchool::factory()->create();
@@ -28,7 +30,7 @@ class AttendanceLateTypeSchoolUnitTest extends TestCase
         $this->assertInstanceOf(AttendanceLateType::class, $lateTypeSchool->attendanceLateType);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_attendance_late_type_school_record()
     {
         $school = School::factory()->create();

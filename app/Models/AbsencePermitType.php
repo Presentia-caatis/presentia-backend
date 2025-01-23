@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\BelongsToSchool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AbsencePermitType extends Model
 {
     use HasFactory;
+    use BelongsToSchool;
 
     protected $fillable = [
         'permit_name',
-        'active_status',
+        'is_active',
     ];
 
     public function absencePermits()
