@@ -30,8 +30,7 @@ class AttendanceWindowController extends Controller
         $day = strtolower(Carbon::parse($request->date)->format('l'));
         
 
-        $dayData = Day::where('school_id', $request->user()->school->id)
-        ->where('name', $day)
+        $dayData = Day::where('name', $day)
         ->first();
 
         $dataSchedule = $dayData->attendanceSchedule;
@@ -41,6 +40,7 @@ class AttendanceWindowController extends Controller
         $attendanceWindow = AttendanceWindow::create([
             'day_id' => $dayData->id,
             'name' => $dataSchedule->name . ' ' . Carbon::parse($request->date)->format('d-m-Y'),
+            'school_id' => $dayData->school_id,
             'total_present' => 0,
             'total_absent' => 0,
             'date' => $request->date,

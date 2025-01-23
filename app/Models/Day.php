@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\BelongsToSchool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Day extends Model
 {
     use HasFactory;
+    use BelongsToSchool;
 
     protected $fillable = [
         'attendance_schedule_id',
@@ -20,8 +22,5 @@ class Day extends Model
         return $this->belongsTo(AttendanceSchedule::class);
     }
 
-    public function school()
-    {
-        return $this->belongsTo(School::class);
-    }
+
 }

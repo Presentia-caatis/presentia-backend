@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\AttendanceSchedule;
 use App\Models\Day;
+use App\Models\School;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class AttendanceScheduleAndDaySeeder extends Seeder
@@ -17,14 +19,20 @@ class AttendanceScheduleAndDaySeeder extends Seeder
     
     public function run(): void
     {
+        
+        $school = School::findOrFail($this->school_id);
+        $schoolTimeZone = $school->timezone ?? 'UTC';
+
+        $currentDate = Carbon::now($schoolTimeZone);
+        
         $defaultAttendanceSchedule = AttendanceSchedule::create([
             'event_id' => null,
             'type' => 'default',
             'name' => 'Default Schedule',
-            'check_in_start_time' => now()->setTime(7,0),
-            'check_in_end_time' => now()->setTime(8,0),
-            'check_out_start_time' => now()->setTime(16,0),
-            'check_out_end_time' => now()->setTime(15,0),
+            'check_in_start_time' => $currentDate->copy()->setTime(7,0)->utc(),
+            'check_in_end_time' => $currentDate->copy()->setTime(8,0)->utc(),
+            'check_out_start_time' => $currentDate->copy()->setTime(16,0)->utc(),
+            'check_out_end_time' => $currentDate->copy()->setTime(15,0),
         ]);
 
         $holidayAttendanceSchedule = AttendanceSchedule::create([

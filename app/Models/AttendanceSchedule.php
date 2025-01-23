@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\BelongsToSchool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AttendanceSchedule extends Model
 {
-    /** @use HasFactory<\Database\Factories\AttendanceScheduleFactory> */
     use HasFactory;
-
+    use BelongsToSchool;
 
     protected $fillable = [
         'event_id',
@@ -28,7 +28,6 @@ class AttendanceSchedule extends Model
 
     public function schools()
     {
-        return $this->belongsToMany(School::class, 'days')
-        ->withTimestamps();;
+        return $this->belongsToMany(School::class, 'days')->withTimestamps();
     }
 }

@@ -12,11 +12,12 @@ class SchoolSeeder extends Seeder
     {
         School::create([
             'subscription_plan_id' => 1,
-            'logo_image_path' => 'images/Logo-SMK-10-Bandung.png',
+            'logo_image_path' => 'png/Logo-SMK-10-Bandung.png',
             'name' => 'SMKN 10 Bandung',
             'address' => 'JL. CIJAWURA HILIR NO. 339, Cijaura, Kec. Buahbatu, Kota Bandung, Jawa Barat',
             'latest_subscription' => now(),
             'end_subscription' => now()->addMonth(),
+            'timezone' => 'Asia/Jakarta'
         ]);
 
         School::create([
@@ -26,6 +27,7 @@ class SchoolSeeder extends Seeder
             'address' => 'Jl. Kebon Jeruk No. 1, Jakarta',
             'latest_subscription' => now(),
             'end_subscription' => now()->addMonth(),
+            'timezone' => 'Asia/Jakarta'
         ]);
     }
 }

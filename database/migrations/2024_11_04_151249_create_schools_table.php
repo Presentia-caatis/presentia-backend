@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("address");
             $table->timestamp("latest_subscription");
             $table->timestamp("end_subscription")->nullable();
+            $table->string('timezone')->default('UTC');
             $table->timestamps();
         });
     }

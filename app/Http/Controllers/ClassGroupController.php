@@ -11,7 +11,7 @@ class ClassGroupController extends Controller
     public function index()
     {
 
-        $data = ClassGroup::with('school')->get();
+        $data = ClassGroup::get();
         return response()->json([
             'status' => 'success',
             'message' => 'Class groups retrieved successfully',

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\{
+    DashboardStatistic,
     TimeController,
     FeatureController,
     SubscriptionPlanController,
@@ -25,13 +26,15 @@ use App\Http\Controllers\{
     PaymentController,
     ClassGroupController,
     StudentController,
-    AttendanceLateTypeController,
+    CheckInStatusController,
     UserController,
     AttendanceWindowController,
     AttendanceController,
     DocumentController,
     AbsencePermitTypeController,
-    AbsencePermitController
+    AbsencePermitController,
+    AttendanceScheduleController,
+    DayController
 };
 
 
@@ -40,7 +43,7 @@ Route::post('/attendance', [AttendanceController::class, 'store']);
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Time Routes
-    Route::prefix('time')->group(function() {
+    Route::prefix('time')->group(function () {
         Route::get('/', [TimeController::class, 'getCurrentTime']);
     });
 
@@ -118,73 +121,97 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{payment}', [PaymentController::class, 'destroy']);
     });
 
-    // Class Group Routes
-    Route::prefix('class-group')->group(function () {
-        Route::get('/', [ClassGroupController::class, 'index']);
-        Route::post('/', [ClassGroupController::class, 'store']);
-        Route::get('/{classGroup}', [ClassGroupController::class, 'show']);
-        Route::put('/{classGroup}', [ClassGroupController::class, 'update']);
-        Route::delete('/{classGroup}', [ClassGroupController::class, 'destroy']);
+    Route::prefix('{school_id}')->middleware('school')->group(function () {
+        // Class Group Routes
+        Route::prefix('class-group')->group(function () {
+            Route::get('/', [ClassGroupController::class, 'index']);
+            Route::post('/', [ClassGroupController::class, 'store']);
+            Route::get('/{classGroup}', [ClassGroupController::class, 'show']);
+            Route::put('/{classGroup}', [ClassGroupController::class, 'update']);
+            Route::delete('/{classGroup}', [ClassGroupController::class, 'destroy']);
+        });
+
+        // Student Routes
+        Route::prefix('student')->group(function () {
+            Route::get('/', [StudentController::class, 'index']);
+            Route::post('/', [StudentController::class, 'store']);
+            Route::post('/store-via-file', [StudentController::class, 'storeViaFile']);
+            Route::get('/{student}', [StudentController::class, 'show']);
+            Route::put('/{student}', [StudentController::class, 'update']);
+            Route::delete('/{student}', [StudentController::class, 'destroy']);
+        });
+
+        // Attendance Late Type Routes
+        Route::prefix('check-in-status')->group(function () {
+            Route::get('/', [CheckInStatusController::class, 'index']);
+            Route::post('/', [CheckInStatusController::class, 'store']);
+            Route::get('/{attendanceLateType}', [CheckInStatusController::class, 'show']);
+            Route::put('/{attendanceLateType}', [CheckInStatusController::class, 'update']);
+            Route::delete('/{attendanceLateType}', [CheckInStatusController::class, 'destroy']);
+        });
+
+        // Attendance Routes
+        Route::prefix('attendance')->group(function () {
+            Route::get('/', [AttendanceController::class, 'index']);
+            Route::get('/{attendance}', [AttendanceController::class, 'show']);
+            Route::put('/{attendance}', [AttendanceController::class, 'update']);
+            Route::delete('/{attendance}', [AttendanceController::class, 'destroy']);
+        });
+
+        // Document Routes
+        Route::prefix('document')->group(function () {
+            Route::get('/', [DocumentController::class, 'index']);
+            Route::post('/', [DocumentController::class, 'store']);
+            Route::get('/{document}', [DocumentController::class, 'show']);
+            Route::put('/{document}', [DocumentController::class, 'update']);
+            Route::delete('/{document}', [DocumentController::class, 'destroy']);
+        });
+
+        // Absence Permit Type Routes
+        Route::prefix('absence-permit-type')->group(function () {
+            Route::get('/', [AbsencePermitTypeController::class, 'index']);
+            Route::post('/', [AbsencePermitTypeController::class, 'store']);
+            Route::get('/{absencePermitType}', [AbsencePermitTypeController::class, 'show']);
+            Route::put('/{absencePermitType}', [AbsencePermitTypeController::class, 'update']);
+            Route::delete('/{absencePermitType}', [AbsencePermitTypeController::class, 'destroy']);
+        });
+
+        // Absence Permit Routes
+        Route::prefix('absence-permit')->group(function () {
+            Route::get('/', [AbsencePermitController::class, 'index']);
+            Route::post('/', [AbsencePermitController::class, 'store']);
+            Route::get('/{absencePermit}', [AbsencePermitController::class, 'show']);
+            Route::put('/{absencePermit}', [AbsencePermitController::class, 'update']);
+            Route::delete('/{absencePermit}', [AbsencePermitController::class, 'destroy']);
+        });
+
+        Route::prefix('attendance-window')->group(function () {
+            Route::get('/', [AttendanceWindowController::class, 'index']);
+            Route::post('/generate-window', [AttendanceWindowController::class, 'generateWindow']);
+        });
+
+        Route::prefix('attendance-schedule')->group(function () {
+            Route::get('/', [AttendanceScheduleController::class, 'index']);
+            Route::post('/', [AttendanceScheduleController::class, 'storeEvent']);
+            Route::put('/{attendanceSchedule}', [AttendanceScheduleController::class, 'update']);
+            Route::delete('/{attendanceSchedule}', [AttendanceScheduleController::class, 'destroy']);
+        });
+
+        Route::prefix('day')->group(function() {
+            Route::get('/', [DayController::class, 'index']);
+            Route::get('/{day}', [DayController::class, 'show']);
+            Route::get('/all-by-school', [DayController::class, 'showAllBySchool']);
+            Route::put('/{day}', [DayController::class, 'update']);
+        });
+
+        Route::prefix('dashboard-statistic')->group(function () {
+            Route::get('/static', [DashboardStatistic::class, 'StaticStatistic']);
+            Route::post('/daily', [DashboardStatistic::class, 'DailyStatistic']);
+        });
     });
 
-    // Student Routes
-    Route::prefix('student')->group(function () {
-        Route::get('/', [StudentController::class, 'index']);
-        Route::post('/', [StudentController::class, 'store']);
-        Route::get('/{student}', [StudentController::class, 'show']);
-        Route::put('/{student}', [StudentController::class, 'update']);
-        Route::delete('/{student}', [StudentController::class, 'destroy']);
-    });
-
-    // Attendance Late Type Routes
-    Route::prefix('attendance-late-type')->group(function () {
-        Route::get('/', [AttendanceLateTypeController::class, 'index']);
-        Route::post('/', [AttendanceLateTypeController::class, 'store']);
-        Route::get('/{attendanceLateType}', [AttendanceLateTypeController::class, 'show']);
-        Route::put('/{attendanceLateType}', [AttendanceLateTypeController::class, 'update']);
-        Route::delete('/{attendanceLateType}', [AttendanceLateTypeController::class, 'destroy']);
-    });
-
-    // Attendance Routes
-    Route::prefix('attendance')->group(function () {
-        Route::get('/', [AttendanceController::class, 'index']);
-        Route::get('/{attendance}', [AttendanceController::class, 'show']);
-        Route::put('/{attendance}', [AttendanceController::class, 'update']);
-        Route::delete('/{attendance}', [AttendanceController::class, 'destroy']);
-    });
-
-    // Document Routes
-    Route::prefix('document')->group(function () {
-        Route::get('/', [DocumentController::class, 'index']);
-        Route::post('/', [DocumentController::class, 'store']);
-        Route::get('/{document}', [DocumentController::class, 'show']);
-        Route::put('/{document}', [DocumentController::class, 'update']);
-        Route::delete('/{document}', [DocumentController::class, 'destroy']);
-    });
-
-    // Absence Permit Type Routes
-    Route::prefix('absence-permit-type')->group(function () {
-        Route::get('/', [AbsencePermitTypeController::class, 'index']);
-        Route::post('/', [AbsencePermitTypeController::class, 'store']);
-        Route::get('/{absencePermitType}', [AbsencePermitTypeController::class, 'show']);
-        Route::put('/{absencePermitType}', [AbsencePermitTypeController::class, 'update']);
-        Route::delete('/{absencePermitType}', [AbsencePermitTypeController::class, 'destroy']);
-    });
 
 
-    // Absence Permit Routes
-    Route::prefix('absence-permit')->group(function () {
-        Route::get('/', [AbsencePermitController::class, 'index']);
-        Route::post('/', [AbsencePermitController::class, 'store']);
-        Route::get('/{absencePermit}', [AbsencePermitController::class, 'show']);
-        Route::put('/{absencePermit}', [AbsencePermitController::class, 'update']);
-        Route::delete('/{absencePermit}', [AbsencePermitController::class, 'destroy']);
-    });
 
-
-    Route::prefix('attendance-window')->group(function () {
-        Route::get('/', [AttendanceWindowController::class, 'index']);
-        Route::post('/generate-window', [AttendanceWindowController::class, 'generateWindow']);
-    });
 });
 

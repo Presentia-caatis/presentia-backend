@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         foreach ($schools as $school) {
             (new UserSeeder($school->id))->run();
             (new AttendanceScheduleAndDaySeeder($school->id))->run();
-            (new ClassGroupSeeder($school->id))->run();
-            (new StudentSeeder($school->id))->run();
+            //(new ClassGroupSeeder($school->id))->run();
+            //(new StudentSeeder($school->id))->run();
             (new CheckInStatusSeeder($school->id))->run();
             (new AttendanceWindowSeeder($school->id))->run();
         }
