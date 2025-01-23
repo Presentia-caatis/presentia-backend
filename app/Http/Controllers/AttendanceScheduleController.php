@@ -79,19 +79,19 @@ class AttendanceScheduleController extends Controller
 
         $data['check_in_start_time'] = Carbon::parse($data['check_in_start_time'], $school->timezone)
             ->utc()
-            ->format('Y-m-d\TH:i:s.u\Z'); 
+            ->format('Y-m-d\TH:i:s.u\Z');
 
         $data['check_in_end_time'] = Carbon::parse($data['check_in_end_time'], $school->timezone)
             ->utc()
-            ->format('Y-m-d\TH:i:s.u\Z'); 
+            ->format('Y-m-d\TH:i:s.u\Z');
 
         $data['check_out_start_time'] = Carbon::parse($data['check_out_start_time'], $school->timezone)
             ->utc()
-            ->format('Y-m-d\TH:i:s.u\Z'); 
+            ->format('Y-m-d\TH:i:s.u\Z');
 
         $data['check_out_end_time'] = Carbon::parse($data['check_out_end_time'], $school->timezone)
             ->utc()
-            ->format('Y-m-d\TH:i:s.u\Z'); 
+            ->format('Y-m-d\TH:i:s.u\Z');
 
         if (!$data['event_id']) {
             $event = Event::create([
@@ -125,8 +125,25 @@ class AttendanceScheduleController extends Controller
             'check_out_end_time' => 'required|date_format:Y-m-d H:i:s'
         ]);
 
-        $attendanceSchedule = AttendanceSchedule::find($id);
-        $attendanceSchedule->update($request->all());
+        $school = School::findOrFail($school);
+        $timezone = $school->timezone;
+
+        $checkInStartTime = Carbon::createFromFormat('Y-m-d H:i:s', $request->check_in_start_time, $timezone)->utc();
+        $checkInEndTime = Carbon::createFromFormat('Y-m-d H:i:s', $request->check_in_end_time, $timezone)->utc();
+        $checkOutStartTime = Carbon::createFromFormat('Y-m-d H:i:s', $request->check_out_start_time, $timezone)->utc();
+        $checkOutEndTime = Carbon::createFromFormat('Y-m-d H:i:s', $request->check_out_end_time, $timezone)->utc();
+
+        $attendanceSchedule = AttendanceSchedule::findOrFail($id);
+        $attendanceSchedule->update([
+            'event_id' => $request->event_id,
+            'name' => $request->name,
+            'type' => $request->type,
+            'check_in_start_time' => $checkInStartTime,
+            'check_in_end_time' => $checkInEndTime,
+            'check_out_start_time' => $checkOutStartTime,
+            'check_out_end_time' => $checkOutEndTime,
+        ]);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Attendance schedule updated successfully',
